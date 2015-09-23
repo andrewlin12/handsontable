@@ -7,13 +7,13 @@
  * Licensed under the MIT license.
  * http://handsontable.com/
  *
- * Date: Wed Sep 23 2015 11:37:23 GMT-0400 (EDT)
+ * Date: Wed Sep 23 2015 11:41:27 GMT-0400 (EDT)
  */
 /*jslint white: true, browser: true, plusplus: true, indent: 4, maxerr: 50 */
 
 window.Handsontable = {
   version: '0.18.0',
-  buildDate: 'Wed Sep 23 2015 11:37:23 GMT-0400 (EDT)'
+  buildDate: 'Wed Sep 23 2015 11:41:27 GMT-0400 (EDT)'
 };
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Handsontable = f()}})(function(){var define,module,exports;return (function init(modules, cache, entry) {
   (function outer (modules, cache, entry) {
@@ -5520,9 +5520,10 @@ DataMap.prototype.createRow = function(index, amount, createdAutomatically) {
   if (typeof index !== 'number' || index >= this.instance.countRows()) {
     index = this.instance.countRows();
   }
-  Handsontable.hooks.run(this.instance, 'beforeCreateRow', index, numberOfCreatedRows, createdAutomatically);
-  currentIndex = index;
   var maxRows = this.instance.getSettings().maxRows;
+  var toCreate = Math.min(amount, maxRows - this.instance.countRows());
+  Handsontable.hooks.run(this.instance, 'beforeCreateRow', index, toCreate, createdAutomatically);
+  currentIndex = index;
   while (numberOfCreatedRows < amount && this.instance.countRows() < maxRows) {
     if (this.instance.dataType === 'array') {
       row = [];
@@ -5560,8 +5561,9 @@ DataMap.prototype.createCol = function(index, amount, createdAutomatically) {
     amount = 1;
   }
   currentIndex = index;
-  Handsontable.hooks.run(this.instance, 'beforeCreateCol', index, numberOfCreatedCols, createdAutomatically);
   var maxCols = this.instance.getSettings().maxCols;
+  var toCreate = Math.min(amount, maxCols - this.instance.countCols());
+  Handsontable.hooks.run(this.instance, 'beforeCreateCol', index, toCreate, createdAutomatically);
   while (numberOfCreatedCols < amount && this.instance.countCols() < maxCols) {
     constructor = columnFactory(this.GridSettings, this.priv.columnsSettingConflicts);
     if (typeof index !== 'number' || index >= this.instance.countCols()) {
