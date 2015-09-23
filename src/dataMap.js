@@ -168,6 +168,8 @@ DataMap.prototype.createRow = function (index, amount, createdAutomatically) {
     index = this.instance.countRows();
   }
 
+  Handsontable.hooks.run(this.instance, 'beforeCreateRow', index, numberOfCreatedRows, createdAutomatically);
+
   currentIndex = index;
   var maxRows = this.instance.getSettings().maxRows;
   while (numberOfCreatedRows < amount && this.instance.countRows() < maxRows) {
@@ -229,6 +231,8 @@ DataMap.prototype.createCol = function (index, amount, createdAutomatically) {
   }
 
   currentIndex = index;
+
+  Handsontable.hooks.run(this.instance, 'beforeCreateCol', index, numberOfCreatedCols, createdAutomatically);
 
   var maxCols = this.instance.getSettings().maxCols;
   while (numberOfCreatedCols < amount && this.instance.countCols() < maxCols) {

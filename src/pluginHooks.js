@@ -83,6 +83,7 @@ const REGISTERED_HOOKS = [
    * @param {Number} amount Number of newly created columns in the data source array.
    */
   "afterCreateCol",
+  "beforeCreateCol",
 
   /**
    * Callback is fired when a new row is created.
@@ -92,6 +93,7 @@ const REGISTERED_HOOKS = [
    * @param {Number} amount Number of newly created rows in the data source array.
    */
   "afterCreateRow",
+  "beforeCreateRow",
 
   /**
    * Event called when current cell is deselected.
